@@ -1,15 +1,8 @@
-import usePostList from '../hooks/usepostlist';
-
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-  userId: number;
-}
+import usePosts from '../hooks/usepostlist';
 
 const PostList = () => {
   
-  const { data: posts, error, isLoading } = usePostList();
+  const { data: posts, error, isLoading } = usePosts();
   
   if (isLoading) return <p>Loading...</p>
 
@@ -17,7 +10,7 @@ const PostList = () => {
 
   return (
     <ul className="list-group">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <li key={post.id} className="list-group-item">
           {post.title}
         </li>

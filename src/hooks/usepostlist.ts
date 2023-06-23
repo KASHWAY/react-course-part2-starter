@@ -8,18 +8,12 @@ interface Post {
     completed: boolean;
 }
 
-const usePostList = () => {
+const usePosts = () => useQuery<Post[], Error>({
+    queryKey: ['posts'],
+    queryFn: () => axios
+        .get('https://jsonplaceholder.typicode.com/posts')
+        .then(res => res.data),
+        staleTime: 1 * 60 * 1000, // 1 minute
+})
 
-    const fetchPostList = () =>
-        axios 
-        .get<Post[]>('https://jsonplaceholder.typicode.com/todos')
-        .then(res => res.data);
-
-    return useQuery<Post[], Error>({
-        queryKey: ['postlist'],
-        queryFn: fetchPostList
-    })
-
-}
-
-export default usePostList;
+export default usePosts;
